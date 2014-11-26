@@ -21,15 +21,18 @@ var gCssComb = require('gulp-csscomb');
 var gCsso = require('gulp-csso');
 var gSize = require('gulp-size');
 var del = require('del');
+var browserSync = require('browser-sync');
+var bsReload = browserSync.reload;
 
 
 /* Setting ------------------------------------------------------------------ */
 var IS_PRODUCTION = gUtil.env.p || false;
 var SRC = {
-    styl: './src/stylus/*.styl'
+	styl: './src/stylus/*.styl'
 };
 var DEST = {
-    css: './build/css/'
+	base: './build/',
+	css: './build/css/'
 };
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 10',
@@ -47,6 +50,11 @@ var STYLUS_INCLUDE_DIRS = [
 ];
 
 
+/* Clean Up ----------------------------------------------------------------- */
+gulp.task('clean:css', del.bind(null, [DEST.css + '*.css']));
+gulp.task('clean', ['clean:css']);
+
+
 /* StyleSheet --------------------------------------------------------------- */
 gulp.task('stylus', ['clean:css'], function(){
 	return gulp.src(SRC.styl)
@@ -56,14 +64,27 @@ gulp.task('stylus', ['clean:css'], function(){
 		.pipe(gCssComb())
 		.pipe(IS_PRODUCTION ? gCsso(false) : gUtil.noop())	// Disable CSSO opt: structureMinimization
 		.pipe(gulp.dest(DEST.css))
+		.pipe(IS_PRODUCTION ? gUtil.noop() : bsReload({stream:true}))
 		.pipe(gSize({title: 'styles'}));
 });
 
 
-/* Clean Up ----------------------------------------------------------------- */
-gulp.task('clean:css', del.bind(null, [DEST.css + '*.css']));
-gulp.task('clean', ['clean:css']);
+/* BrowserSync -------------------------------------------------------------- */
+gulp.task('serve', ['stylus'], function(cb){
+	if (IS_PRODUCTION) {
+		cb();
+		return;
+	}
+	browserSync({
+		notify: true,
+		server: {
+		  baseDir: DEST.base
+		}
+	});
+	gWatch(DEST.base + '*.html', bsReload);
+	cb();
+});
 
 
 /* Default ------------------------------------------------------------------ */
-gulp.task('default', ['stylus']);
+gulp.task('default', ['serve']);
