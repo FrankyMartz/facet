@@ -27,5 +27,12 @@ node_modules
 # Users Environment Variables
 .lock-wscript
 
+# Vim Cruft
 *.swp
 tags
+
+# Compiled Files
+build/css
+build/js
+build/img
+

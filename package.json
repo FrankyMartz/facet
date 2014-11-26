@@ -36,6 +36,8 @@
     "gulp-size": "^1.1.0",
     "gulp-stylus": "*",
     "gulp-util": "^3.0.1",
-    "gulp-watch": "^2.0.0"
+    "gulp-watch": "^2.0.0",
+    "normalize.css": "*",
+    "stylus": "*"
   }
 }

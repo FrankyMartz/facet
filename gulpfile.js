@@ -1,5 +1,5 @@
 'use strict';
-/******************************************************************************
+/** ===========================================================================
  * GulpFile
  *
  * @version 0.1.0
@@ -9,8 +9,9 @@
  *
  * // Production: Clean Up && Compress
  * $ gulp -p
- *
- ******************************************************************************/
+ * ========================================================================== */
+
+/* Imports ------------------------------------------------------------------ */
 var gulp = require('gulp');
 var gUtil = require('gulp-util');
 var gWatch = require('gulp-watch');
@@ -19,10 +20,10 @@ var gAutoPrefix = require('gulp-autoprefixer');
 var gCssComb = require('gulp-csscomb');
 var gCsso = require('gulp-csso');
 var gSize = require('gulp-size');
-
 var del = require('del');
 
-// Setting
+
+/* Setting ------------------------------------------------------------------ */
 var IS_PRODUCTION = gUtil.env.p || false;
 var SRC = {
     styl: './src/stylus/*.styl'
@@ -41,25 +42,28 @@ var AUTOPREFIXER_BROWSERS = [
   'android >= 4.4',
   'bb >= 10'
 ];
+var STYLUS_INCLUDE_DIRS = [
+	'./node_modules/normalize.css/'
+];
 
 
-// StyleSheet
+/* StyleSheet --------------------------------------------------------------- */
 gulp.task('stylus', ['clean:css'], function(){
 	return gulp.src(SRC.styl)
-		.pipe(IS_PRODUCTION ? gWatch(SRC.styl) :  gUtil.noop())
-		.pipe(gStylus())
+		.pipe(IS_PRODUCTION ? gUtil.noop() : gWatch(SRC.styl))
+		.pipe(gStylus({include: STYLUS_INCLUDE_DIRS, 'include css': true}))
 		.pipe(gAutoPrefix({browsers: AUTOPREFIXER_BROWSERS}))
 		.pipe(gCssComb())
-		.pipe(IS_PRODUCTION ? gCsso(false) : gUtil.noop())		// Disable CSSO option: structureMinimization
+		.pipe(IS_PRODUCTION ? gCsso(false) : gUtil.noop())	// Disable CSSO opt: structureMinimization
 		.pipe(gulp.dest(DEST.css))
 		.pipe(gSize({title: 'styles'}));
 });
 
 
-// Clean Up
+/* Clean Up ----------------------------------------------------------------- */
 gulp.task('clean:css', del.bind(null, [DEST.css + '*.css']));
 gulp.task('clean', ['clean:css']);
 
 
-// Default
+/* Default ------------------------------------------------------------------ */
 gulp.task('default', ['stylus']);
