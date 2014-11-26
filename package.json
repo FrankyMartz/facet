@@ -1,0 +1,41 @@
+{
+  "name": "facet",
+  "version": "0.1.0",
+  "private": true,
+  "author": "Franky Martinez (http://frankymartz.com/)",
+  "description": "Single Page App Demo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FrankyMartz/facet/issues"
+  },
+  "homepage": "https://github.com/FrankyMartz/facet",
+  "main": "build/app.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FrankyMartz/facet.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "jshintConfig": {
+    "node": true,
+    "browser": true,
+    "curly": true,
+    "eqeqeq": true,
+    "undef": true,
+    "forin": true,
+    "unused": true,
+    "multistr": true
+  },
+  "dependencies": {
+    "del": "^0.1.3",
+    "gulp": "^3.8.10",
+    "gulp-autoprefixer": "^2.0.0",
+    "gulp-csscomb": "^3.0.3",
+    "gulp-csso": "^0.2.9",
+    "gulp-size": "^1.1.0",
+    "gulp-stylus": "*",
+    "gulp-util": "^3.0.1",
+    "gulp-watch": "^2.0.0"
+  }
+}
