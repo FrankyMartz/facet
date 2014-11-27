@@ -34,6 +34,11 @@ var DEST = {
 	base: './build/',
 	css: './build/css/'
 };
+var WATCH = {
+  base: './src/',
+	styl: "./src/stylus/**/*.styl",
+	html: './build/*.html'
+};
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 10',
   'ie_mob >= 10',
@@ -56,9 +61,9 @@ gulp.task('clean', ['clean:css']);
 
 
 /* StyleSheet --------------------------------------------------------------- */
-gulp.task('stylus', ['clean:css'], function(){
-	return gulp.src(SRC.styl)
-		.pipe(IS_PRODUCTION ? gUtil.noop() : gWatch(SRC.styl))
+gulp.task('stylus', ['clean:css'], function(cb){
+	gulp.src(SRC.styl)
+		.pipe(IS_PRODUCTION ? gUtil.noop() : gWatch(WATCH.styl,{name:'Stylus'}))
 		.pipe(gStylus({include: STYLUS_INCLUDE_DIRS, 'include css': true}))
 		.pipe(gAutoPrefix({browsers: AUTOPREFIXER_BROWSERS}))
 		.pipe(gCssComb())
@@ -66,6 +71,9 @@ gulp.task('stylus', ['clean:css'], function(){
 		.pipe(gulp.dest(DEST.css))
 		.pipe(IS_PRODUCTION ? gUtil.noop() : bsReload({stream:true}))
 		.pipe(gSize({title: 'styles'}));
+	
+	// Because of Gulp-Watch... gross
+	cb();
 });
 
 
@@ -81,7 +89,7 @@ gulp.task('serve', ['stylus'], function(cb){
 		  baseDir: DEST.base
 		}
 	});
-	gWatch(DEST.base + '*.html', bsReload);
+	gulp.watch(WATCH.html, bsReload);
 	cb();
 });
 
