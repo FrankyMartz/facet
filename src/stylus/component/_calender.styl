@@ -1,0 +1,65 @@
+/*! --------------------------------------------------------------------------
+ * Calendar
+ *
+ * cal
+ * cal_head
+ * cal_head_btn
+ * cal_head_btn-last
+ * cal_head_btn-next
+ * cal_head_title
+ *
+ * cal_table
+ * cal_table_col-edge
+ * cal_table_head
+ * cal_table_body
+ *
+ * -------------------------------------------------------------------------- */
+
+ @require "../global/_all"
+
+#cal
+	display: inline-block
+	box-sizing: border-box
+	width: 65%
+	//height: 85%
+	background-color: yellow
+	border-right: 1rem solid $color.background.body
+
+.cal_head
+	font-size: 3rem
+	height: 8.5rem
+	line-height: 1.25em
+	text-align: center
+
+.cal_head_title
+	font-weight: 300
+	& > i
+		font-style: normal
+		font-weight: 100
+
+.cal_head_btn-last
+	float: left
+
+.cal_head_btn-next
+	float: right
+
+.cal_table
+	width: 100%
+	height: 100%
+	background-color: teal
+	& td, & th
+		width: 14.28571429%
+
+.cal_table_head
+	text-align: right
+	text-transform: capitalize
+	& th
+		padding-right: 0.75em
+
+.cal_table_body td
+	border: 1px solid $color.table.border;
+	//height: 16.66666667%
+	height: 5rem
+
+
+

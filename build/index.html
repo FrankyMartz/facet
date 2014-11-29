@@ -4,10 +4,140 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>facet</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,400italic,500,700,900,300,100italic,300italic,500italic,700italic,900italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="./css/normalize.css" type="text/css" media="all" />
     <link rel="stylesheet" href="./css/app.css" type="text/css" media="all" />
   </head>
   <body>
-    body
+    <div id="app">
+
+      <section id="cal">
+
+        <header class="cal_head">
+            <button class="cal_head_btn cal_head_btn-last">
+              
+              &lt;
+            </button>
+            <span class="cal_head_title">November<i>2014</i></span>
+            <button class="cal_head_btn cal_head_btn-next">&gt;</button>
+        </header>
+
+        <table class="cal_table">
+          <colgroup>
+            <col class="cal_table_col-edge"/>
+            <col span="5"/>
+            <col class="cal_table_col-edge"/>
+          </colgroup>
+
+          <thead class="cal_table_head">
+            <tr>
+              <th>sun</th>
+              <th>mon</th>
+              <th>tue</th>
+              <th>wed</th>
+              <th>thu</th>
+              <th>fri</th>
+              <th>sat</th>
+            </tr>
+          </thead>
+
+          <tbody class="cal_table_body">
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+
+          </tbody>
+        </table>
+      </section>
+
+      <aside id="note">
+        <header class="note_head">
+          <time datetime="" pubdate=""><i>Monday</i> Nov 23, 2014</time>
+          <input type="button" name="note_head_btn_add" value="+" />
+        </header>
+
+        <ul class="note_list">
+          <li class="note_list_item">
+            <label class="note_list_item_label">Something Here</label>
+            <input type="text" name="note_list_item_edit"/>
+            <input type="button" name="note_list_item_btn_del" value="✖︎" />
+          </li>
+          
+          <li class="note_list_item">
+            <label class="note_list_item_label">Something Here</label>
+            <input type="text" name="note_list_item_edit"/>
+            <input type="button" name="note_list_item_btn_del" value="✖︎" />
+          </li>
+          
+          <li class="note_list_item">
+            <label class="note_list_item_label">Something Here</label>
+            <input type="text" name="note_list_item_edit"/>
+            <input type="button" name="note_list_item_btn_del" value="✖︎" />
+          </li>
+        </ul>
+
+        <footer class="note_foot">
+          <input type="button" name="note_foot_btn_today" value="today" />
+          <span class="note_foot_count"><strong>2</strong> notes</span>
+        </footer>
+      </aside>
+
+    </div>
   </body>
 </html>

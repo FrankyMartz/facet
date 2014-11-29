@@ -1,0 +1,22 @@
+/* --------------------------------------------------------------------------
+ * Mixin
+ * -------------------------------------------------------------------------- */
+
+fontSmoothing($enable = false)
+	if $enable
+		-moz-osx-font-smoothing: grayscale
+		-webkit-font-smoothing: antialiased
+		font-smoothing: antialiased
+	else
+		-moz-osx-font-smoothing: auto
+		-webkit-font-smoothing: subpixel-antialiased
+		font-smoothing: subpixel-antialiased
+
+clearfix()
+	&:after
+		content: "."
+		display: block
+		height: 0
+		clear: both
+		visibility: hidden
+	zoom: 1
