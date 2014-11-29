@@ -14,6 +14,7 @@
 /* Imports ------------------------------------------------------------------ */
 var gulp = require('gulp');
 var gUtil = require('gulp-util');
+var gNotify = require('gulp-notify');
 var gWatch = require('gulp-watch');
 var gStylus = require('gulp-stylus');
 var gAutoPrefix = require('gulp-autoprefixer');
@@ -61,19 +62,17 @@ gulp.task('clean', ['clean:css']);
 
 
 /* StyleSheet --------------------------------------------------------------- */
-gulp.task('stylus', ['clean:css'], function(cb){
-	gulp.src(SRC.styl)
-		.pipe(IS_PRODUCTION ? gUtil.noop() : gWatch(WATCH.styl,{name:'Stylus'}))
+// FIXME: Maybe wrap gulp.src in gulp-watch and serve via callback
+gulp.task('stylus', ['clean:css'], function(){
+	return gulp.src(SRC.styl)
 		.pipe(gStylus({include: STYLUS_INCLUDE_DIRS, 'include css': true}))
+		.on('error', gNotify.onError({title:'Stylus Compile Error', message:"<%= error.message %>"}))
 		.pipe(gAutoPrefix({browsers: AUTOPREFIXER_BROWSERS}))
 		.pipe(gCssComb())
 		.pipe(IS_PRODUCTION ? gCsso(false) : gUtil.noop())	// Disable CSSO opt: structureMinimization
 		.pipe(gulp.dest(DEST.css))
 		.pipe(IS_PRODUCTION ? gUtil.noop() : bsReload({stream:true}))
 		.pipe(gSize({title: 'styles'}));
-	
-	// Because of Gulp-Watch... gross
-	cb();
 });
 
 
@@ -89,6 +88,11 @@ gulp.task('serve', ['stylus'], function(cb){
 		  baseDir: DEST.base
 		}
 	});
+
+	gWatch(WATCH.styl, {name:'Stylus'}, function(files, done){
+		gulp.start('stylus', done);
+	});
+
 	gulp.watch(WATCH.html, bsReload);
 	cb();
 });
