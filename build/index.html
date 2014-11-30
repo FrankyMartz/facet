@@ -75,7 +75,7 @@
               <td><button class="cal_table_body_day">11</button></td>
               <td><button class="cal_table_body_day">12</button></td>
               <td><button class="cal_table_body_day">13</button></td>
-              <td><button class="cal_table_body_day">14</button></td>
+              <td><button class="cal_table_body_day" disabled>14</button></td>
               <td><button class="cal_table_body_day">15</button></td>
             </tr>
 
@@ -114,9 +114,10 @@
       </section>
 
       <aside id="note">
+        <div class="note-wrap">
         <header class="note_head">
-          <time datetime="" pubdate=""><i>Monday</i> Nov 23, 2014</time>
-          <input type="button" name="note_head_btn_add" value="+" />
+          <time datetime="" pubdate=""><b>Monday</b> Nov 23, 2014</time>
+          <button class="note_head_btn_add"></button>
         </header>
 
         <ul class="note_list">
@@ -139,6 +140,7 @@
           </li>
         </ul>
 
+        </div>
         <footer class="note_foot">
           <input type="button" name="note_foot_btn_today" value="today" />
           <span class="note_foot_count"><strong>2</strong> notes</span>
