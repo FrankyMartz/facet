@@ -8,6 +8,7 @@ $_cGrey_light_75 = #BFBFBF
 $_cGrey_light_85 = #D8D8D8
 $_cGrey_light_95 = #F2F2F2
 $_cBlue = #4A90E2
+$_cBlue_light = #B6CBE3
 $_cRed = #D01902
 $_cMarine = #9BE2A0
 
@@ -15,7 +16,6 @@ $color = {
 	background: {
 		body: #FFF,
 		selection: $_cBlue,
-		notes: $_cGrey_light_95
 	},
 	text: {
 		base: $_cBlack_30
@@ -42,7 +42,26 @@ $color = {
 			void: $_cGrey_light_75
 		}
 	},
-	notes: {
-		border: $_cGrey_light_85
+	note: {
+		background: $_cGrey_light_95,
+		border: $_cGrey_light_85,
+		btn: {
+			today: {
+				background: $_cGrey_light_85,
+				border: $_cGrey_light_75
+			},
+			item: {
+				add: #333,
+				del: {
+					text: $_cRed
+				}
+			}
+		},
+		item:{
+			border: $_cBlue_light
+		},
+		foot: {
+			count: $_cGrey_light_75
+		}
 	}
 }

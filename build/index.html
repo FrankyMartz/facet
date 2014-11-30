@@ -4,14 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>facet</title>
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,400italic,500,700,900,300,100italic,300italic,500italic,700italic,900italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900|Roboto+Slab' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="./css/normalize.css" type="text/css" media="all" />
     <link rel="stylesheet" href="./css/app.css" type="text/css" media="all" />
   </head>
   <body>
-    <div id="app">
+    <div class="app">
 
-      <section id="cal">
+      <section class="cal">
 
         <header class="cal_head">
             <button class="cal_head_btn cal_head_btn-last">
@@ -113,36 +113,48 @@
         </table>
       </section>
 
-      <aside id="note">
+      <aside class="note">
         <div class="note-wrap">
         <header class="note_head">
           <time datetime="" pubdate=""><b>Monday</b> Nov 23, 2014</time>
-          <button class="note_head_btn_add"></button>
+          <button class="note_head_btn_add">+</button>
         </header>
 
         <ul class="note_list">
           <li class="note_list_item">
-            <label class="note_list_item_label">Something Here</label>
-            <input type="text" name="note_list_item_edit"/>
-            <input type="button" name="note_list_item_btn_del" value="✖︎" />
+            <div class="note_list_item_wrap">
+              <label class="note_list_item_label">
+                Something here would go really nicely. Although, this may change.
+              </label>
+              <button class="note_list_item_btn_del">&times;</button>
+            </div>
+            <input class="note_list_item_edit" type="text" name="note_list_item_edit"/>
           </li>
-          
+
           <li class="note_list_item">
-            <label class="note_list_item_label">Something Here</label>
-            <input type="text" name="note_list_item_edit"/>
-            <input type="button" name="note_list_item_btn_del" value="✖︎" />
+            <div class="note_list_item_wrap">
+              <label class="note_list_item_label">A tiny note.</label>
+              <button class="note_list_item_btn_del">&times;</button>
+            </div>
+            <input class="note_list_item_edit" type="text" name="note_list_item_edit"/>
           </li>
-          
+
           <li class="note_list_item">
-            <label class="note_list_item_label">Something Here</label>
-            <input type="text" name="note_list_item_edit"/>
-            <input type="button" name="note_list_item_btn_del" value="✖︎" />
+            <div class="note_list_item_wrap">
+              <label class="note_list_item_label">
+                You should focus on a sentence that is about three lines down.
+                Only then can you have a comprehensive examination. Something eye
+                worthy.
+              </label>
+              <button class="note_list_item_btn_del">&times;</button>
+            </div>
+            <input class="note_list_item_edit" type="text" name="note_list_item_edit"/>
           </li>
         </ul>
 
         </div>
         <footer class="note_foot">
-          <input type="button" name="note_foot_btn_today" value="today" />
+          <input class="note_foot_btn_today" type="button" name="note_foot_btn_today" value="today" />
           <span class="note_foot_count"><strong>2</strong> notes</span>
         </footer>
       </aside>
