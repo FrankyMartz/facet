@@ -12,6 +12,9 @@
  * cal_table_col-edge
  * cal_table_head
  * cal_table_body
+ * cal_table_body_day
+ * cal_table_body_day-today
+ * cal_table_body_day-void
  *
  * -------------------------------------------------------------------------- */
 
@@ -21,21 +24,30 @@
 	display: inline-block
 	box-sizing: border-box
 	width: 65%
-	//height: 85%
-	background-color: yellow
+	//background-color: yellow
 	border-right: 1rem solid $color.background.body
 
 .cal_head
-	font-size: 3rem
 	height: 8.5rem
-	line-height: 1.25em
 	text-align: center
 
 .cal_head_title
+	font-size: 3rem
+	line-height: 1.25em
 	font-weight: 300
 	& > i
 		font-style: normal
 		font-weight: 100
+
+.cal_head_btn
+	border: none
+	background-color: transparent
+	height: 4.5rem
+	&:hover .cal_head_btn_arrow
+		fill: $color.link.hover
+
+.cal_head_btn_arrow
+	fill: $color.link.default
 
 .cal_head_btn-last
 	float: left
@@ -46,7 +58,7 @@
 .cal_table
 	width: 100%
 	height: 100%
-	background-color: teal
+	//background-color: teal
 	& td, & th
 		width: 14.28571429%
 
@@ -55,11 +67,56 @@
 	text-transform: capitalize
 	& th
 		padding-right: 0.75em
+		padding-bottom: 0.5em
+		font-weight: 400
+		// Edge Cell
+		&:first-child, &:last-child
+			color: $color.table.text.weekend
+			background-color: $color.background.body
+
+
+.cal_table_col-edge
+	background-color: $color.table.background.cell
+	color: $color.table.text.weekend
 
 .cal_table_body td
-	border: 1px solid $color.table.border;
-	//height: 16.66666667%
+	border: 1px solid $color.table.border.default
 	height: 5rem
+	font-size: 0.875rem
+	vertical-align: top
+	text-align: right
+	// Select
+	&:hover
+		cursor: pointer
+		& .cal_table_body_day:not(:disabled),
+		& .cal_table_body_day-void:not(:disabled)
+			text-decoration: underline
+			color: $color.link.hover
+		& .cal_table_body_day-today:not(:disabled)
+			background-color: $color.link.hover
+	// Edge Cell
+	&:first-child, &:last-child
+		color: $color.table.text.weekend
 
+.cal_table_body_day:disabled
+	color: $color.link.active
+
+.cal_table_body_day,
+.cal_table_body_day-void
+	border: none;
+	background-color: transparent
+
+.cal_table_body_day-void
+	color: $color.table.text.void
+
+.cal_table_body_day-today
+	padding: 0.125em
+	line-height: 1em
+	border-radius: 1.25em
+	border-color: transparent
+	color: $color.table.text.today
+	background-color: $color.table.background.day
+	&:disabled
+		background-color: $color.link.active
 
 

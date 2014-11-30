@@ -2,22 +2,47 @@
  * Color
  * -------------------------------------------------------------------------- */
 
+$_cBlack_30 = #4A4A4A
+$_cGrey_light_55 = #8C8C8C
+$_cGrey_light_75 = #BFBFBF
+$_cGrey_light_85 = #D8D8D8
+$_cGrey_light_95 = #F2F2F2
+$_cBlue = #4A90E2
+$_cRed = #D01902
+$_cMarine = #9BE2A0
+
 $color = {
 	background: {
 		body: #FFF,
-		selection: #7DD1CA
-		notes: #FAFAFA
+		selection: $_cBlue,
+		notes: $_cGrey_light_95
 	},
 	text: {
-		base: #4A4A4A
-	}
+		base: $_cBlack_30
+	},
+	link: {
+		default: $_cGrey_light_85,
+		hover: $_cMarine,
+		active: darken($_cMarine, 30)
+	},
 	table: {
-		border: #D9D9D9
-		fill: #F2F2F2
-		text: #BFBFBF
-		selection: #4A90E2
+		border: {
+			default: $_cGrey_light_85,
+			selected: $_cBlue
+		},
+		background: {
+			cell: $_cGrey_light_95,
+			day: $_cRed
+		},
+		fill: $_cGrey_light_95,
+		text: $_cGrey_light_75,
+		text: {
+			today: #FFF
+			weekend: $_cGrey_light_55,
+			void: $_cGrey_light_75
+		}
 	},
 	notes: {
-		border: #D8D8D8
+		border: $_cGrey_light_85
 	}
 }
