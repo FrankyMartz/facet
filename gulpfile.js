@@ -22,6 +22,9 @@ var gCssComb = require('gulp-csscomb');
 var gCsso = require('gulp-csso');
 var gSize = require('gulp-size');
 var del = require('del');
+var browserify = require('browserify');
+var reactify = require('reactify');
+var source = require('vinyl-source-stream');
 var browserSync = require('browser-sync');
 var bsReload = browserSync.reload;
 
@@ -29,15 +32,18 @@ var bsReload = browserSync.reload;
 /* Setting ------------------------------------------------------------------ */
 var IS_PRODUCTION = gUtil.env.p || false;
 var SRC = {
-	styl: './src/stylus/*.styl'
+	styl: './src/stylus/*.styl',
+	jsx: './src/javascript/app.jsx'
 };
 var DEST = {
 	base: './build/',
-	css: './build/css/'
+	css: './build/css/',
+	js: './build/js/'
 };
 var WATCH = {
   base: './src/',
 	styl: "./src/stylus/**/*.styl",
+	jsx: './src/javascript/**/*.jsx',
 	html: './build/*.html'
 };
 var AUTOPREFIXER_BROWSERS = [
@@ -58,10 +64,11 @@ var STYLUS_INCLUDE_DIRS = [
 
 /* Clean Up ----------------------------------------------------------------- */
 gulp.task('clean:css', del.bind(null, [DEST.css + '*.css']));
-gulp.task('clean', ['clean:css']);
+gulp.task('clean:js', del.bind(null, [DEST.js + '*.js']));
+gulp.task('clean', ['clean:css', 'clean:js']);
 
 
-/* StyleSheet --------------------------------------------------------------- */
+/* Stylus ------------------------------------------------------------------- */
 // FIXME: Maybe wrap gulp.src in gulp-watch and serve via callback
 gulp.task('stylus', ['clean:css'], function(){
 	return gulp.src(SRC.styl)
@@ -76,8 +83,21 @@ gulp.task('stylus', ['clean:css'], function(){
 });
 
 
+/* Browserify --------------------------------------------------------------- */
+gulp.task('browserify', ['clean:js'], function(){
+  var b = browserify();
+  b.transform(reactify); // use the reactify transform
+  b.add(SRC.jsx);
+  return b.bundle()
+		//.on('error', errorHandler)
+		.on('error', gNotify.onError({title:'Browserify Compile Error', message:"<%= error.message %>\n<%= error.stack %>"}))
+    .pipe(source('main.js'))
+    .pipe(gulp.dest(DEST.js));
+});
+
+
 /* BrowserSync -------------------------------------------------------------- */
-gulp.task('serve', ['stylus'], function(cb){
+gulp.task('serve', ['stylus', 'browserify'], function(cb){
 	if (IS_PRODUCTION) {
 		cb();
 		return;
@@ -91,6 +111,11 @@ gulp.task('serve', ['stylus'], function(cb){
 
 	gWatch(WATCH.styl, {name:'Stylus'}, function(files, done){
 		gulp.start('stylus', done);
+	});
+
+	gWatch(WATCH.jsx, {name:'Browserify'}, function(files, done){
+		gulp.start('browserify', done);
+		bsReload();
 	});
 
 	gulp.watch(WATCH.html, bsReload);
