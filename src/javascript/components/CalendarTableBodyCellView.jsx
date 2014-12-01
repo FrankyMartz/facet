@@ -1,15 +1,19 @@
 /** =========================================================================
- * Facet
- * Calender Notes made EASY
+ * CalendarTableBodyCellView
  *
  * @author Franky Martinez <frankymartz@gmail.com>
  * @copyright FrankyMartz 2014
  * ========================================================================== */
-
 var React = require('react');
-var Facet = require('./components/FacetControllerView.jsx');
 
-React.render(
-  <Facet />,
-  document.body
-);
+var CalendarTableBodyCellView = React.createClass({
+  render: function(){
+    return (
+      <td>
+        <button></button>
+      </td>
+    );
+  }
+});
+
+module.exports = CalendarTableBodyCellView;

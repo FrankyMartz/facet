@@ -1,19 +1,34 @@
 /** =========================================================================
- * Facet Controller View
+ * FacetControllerView
+ *
+ * CalenderView
+ * CalenderHeadView
+ * CalenderTableView
+ * CalenderTableHeadView
+ * CalenderTableBodyView
+ * NoteView
+ * NoteHeadView
+ * NoteListView
+ * NoteListItemView
+ * NoteFootView
  *
  * @author Franky Martinez <frankymartz@gmail.com>
  * @copyright FrankyMartz 2014
  * ========================================================================== */
 
 var React = require('react');
-var Calendar = require('./Calendar.react.jsx');
+var Calendar = require('./CalendarView.jsx');
+var Notes = require('./NoteView.jsx');
 
-var Facet = React.createClass({
+var FacetApp = React.createClass({
   render: function(){
     return (
-      <Calendar />
+      <div className="app">
+        <Calendar />
+        <Notes />
+      </div>
     );
   }
 });
 
-module.exports = Facet;
+module.exports = FacetApp;
