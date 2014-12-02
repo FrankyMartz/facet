@@ -1,5 +1,5 @@
 /** =========================================================================
- * FacetControllerView
+ * FacetControllerView.jsx
  *
  * CalenderView
  * CalenderHeadView
@@ -19,8 +19,17 @@
 var React = require('react');
 var Calendar = require('./CalendarView.jsx');
 var Notes = require('./NoteView.jsx');
+var NoteStore = require('../stores/NoteStore.jsx');
 
 var FacetApp = React.createClass({
+
+  getInitialState: function(){
+    return {
+      allNotes: NoteStore.getAll(),
+      daySelected: Date.now()
+    };
+  },
+
   render: function(){
     return (
       <div className="app">

@@ -1,0 +1,14 @@
+{
+  "libs": [
+    "browser",
+    "ecma5",
+    "jquery"
+  ],
+  "loadEagerly": [],
+  "dontLoad": [
+    "./build/**/*.js"
+  ],
+  "plugins":{
+    "node": {}
+  }
+}

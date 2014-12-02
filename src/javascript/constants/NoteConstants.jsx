@@ -1,18 +1,14 @@
 /** =========================================================================
- * NoteListView.jsx
+ * NoteConstants.jsx
  *
  * @author Franky Martinez <frankymartz@gmail.com>
  * @copyright FrankyMartz 2014
  * ========================================================================== */
-var React = require('react');
 
-var NoteListView = React.createClass({
-  render: function(){
-    return (
-      <ul className="note_list">
-      </ul>
-    );
-  }
+var keyMirror = require('keymirror');
+
+module.exports = keyMirror({
+  NOTE_CREATE: null,
+  NOTE_DELETE: null,
+  NOTE_UPDATE: null
 });
-
-module.exports = NoteListView;

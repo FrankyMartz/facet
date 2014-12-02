@@ -1,5 +1,5 @@
 /** =========================================================================
- * CalendarTableBodyCellView
+ * CalendarTableBodyCellView.jsx
  *
  * @author Franky Martinez <frankymartz@gmail.com>
  * @copyright FrankyMartz 2014
