@@ -10,7 +10,7 @@ var NoteFootView = React.createClass({
   render: function(){
     return (
       <footer className="note_foot">
-        <input className="note_foot_btn_today" type="button" name="note_foot_btn_today" value="today" />
+        <button className="note_foot_btn_today">today</button>
         <span className="note_foot_count"><strong>2</strong> notes</span>
       </footer>
     );
