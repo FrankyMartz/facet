@@ -7,13 +7,13 @@
 
 var AppDispatcher = require('../dispatcher/AppDispatcher.jsx');
 var EventEmitter = require('events').EventEmitter;
-var TodoConstants = require('../constants/NoteConstants.jsx');
-var merge = require('object-assign');
+var assign = require('object-assign');
 
+var NoteConstants = require('../constants/NoteConstants.jsx');
+var CHANGE_EVENT = 'change';
 
 /* Global --------------------------------------------------------------------*/
 //var NOTE_LOCAL_STORAGE = 'notes';
-var CHANGE_EVENT = 'change';
 var _notes = {};
 
 
@@ -42,28 +42,10 @@ function updateNote(id, text) {
 
 
 /* NoteStore -----------------------------------------------------------------*/
-var NoteStore = merge(EventEmitter.prototype, {
+var NoteStore = assign({}, EventEmitter.prototype, {
 
   getAll: function(){
     return _notes;
-  },
-
-  getNote: function(id){
-    return _notes[id];
-  },
-
-  getNoteList: function(listID){
-    var noteList = [];
-    var note, id;
-    for (id in _notes) {
-      if (_notes.isOwnProperty(id)) {
-        note = _notes[id];
-        if (note.listID === listID) {
-          noteList.push(note);
-        }
-      }
-    }
-    return noteList;
   },
 
   emitChange: function(){
@@ -76,31 +58,35 @@ var NoteStore = merge(EventEmitter.prototype, {
 
   removeChangeListener: function(cb){
     this.removeListener(CHANGE_EVENT, cb);
-  },
+  }
 
-  dispatcherIndex: AppDispatcher.register(function(payload){
-    var action = payload.action;
+});
 
-    switch (action.actionType) {
 
-      case TodoConstants.NOTE_CREATE:
-        createNote(action.listID, action.note);
-        break;
-      
-      case TodoConstants.NOTE_DELETE:
-        deleteNote(action.id);
-        break;
-      
-        case TodoConstants.NOTE_UPDATE:
-          updateNote(action.id, action.text);
-        break;
-      
-      default:
-        return true;
-    }
-    NoteStore.emitChange();
-    return true;
-  })
+NoteStore.dispatcherToken = AppDispatcher.register(function(payload){
+  var action = payload.action;
+
+  switch (action.actionType) {
+
+    case NoteConstants.NOTE_CREATE:
+      createNote(action.listID, action.note);
+      NoteStore.emitChange();
+      break;
+    
+    case NoteConstants.NOTE_DELETE:
+      deleteNote(action.id);
+      NoteStore.emitChange();
+      break;
+    
+    case NoteConstants.NOTE_UPDATE:
+      updateNote(action.id, action.text);
+      NoteStore.emitChange();
+    break;
+    
+    default:
+      // do nothing
+  }
+  
 });
 
 module.exports = NoteStore;
