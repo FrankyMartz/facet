@@ -85,7 +85,7 @@ gulp.task('stylus', ['clean:css'], function(){
 
 /* Browserify --------------------------------------------------------------- */
 gulp.task('browserify', ['clean:js'], function(){
-  var b = browserify();
+  var b = browserify({debug: !IS_PRODUCTION});
   b.transform(reactify); // use the reactify transform
   b.add(SRC.jsx);
   return b.bundle()
