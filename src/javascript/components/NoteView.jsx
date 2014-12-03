@@ -9,20 +9,36 @@ var NoteHead = require('./NoteHeadView.jsx');
 var NoteList = require('./NoteListView.jsx');
 var NoteFoot = require('./NoteFootView.jsx');
 
+
 var NoteView = React.createClass({
   render: function(){
+    var list = this._getNoteList();
+    var total = list.length;
     return (
       <aside className="note">
         <div className="note-wrap">
           <NoteHead daySelected={this.props.daySelectedLink.value} />
-          <NoteList notes={this.props.notes} />
+          <NoteList notes={list} />
         </div>
         <NoteFoot
-          total={this.props.notes.length}
+          total={total}
           daySelectedLink={this.props.daySelectedLink}
         />
       </aside>
     );
+  },
+
+  _getNoteList: function(){
+    var notes = this.props.notes;
+    var day = this.props.daySelectedLink.value;
+    var list = [];
+    var id;
+    for (id in notes){
+      if (notes[id].listID === day) {
+          list.push(notes[id]);
+      }
+    }
+    return list;
   }
 });
 

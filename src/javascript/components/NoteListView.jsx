@@ -15,11 +15,12 @@ var NoteListView = React.createClass({
   },
 
   _renderNoteList: function(){
-    this.props.notes.map(function(note){
+    var notes = this.props.notes.map(function(note){
       return (
-        <NoteListItem key={note.id} message={note.text} />
+        <NoteListItem note={note} />
       );
     });
+    return notes;
   }
 
 });

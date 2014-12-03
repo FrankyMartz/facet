@@ -6,33 +6,44 @@
  * ========================================================================== */
 var React = require('react/addons');
 var NoteActions = require('../actions/NoteActions.jsx');
-//var cx = React.addons.classSet;
+var cx = React.addons.classSet;
 
 var NoteListItemView = React.createClass({
 
   getInitialState: function() {
       return {
         inEdit: false,
-        value: this.props.message
+        value: this.props.note.text || 'Say Something.'
       };
     },
-  
+
+    componentWillReceiveProps: function(nextProps) {
+      this.setState({
+        value: nextProps.note.text
+      });
+    }, 
 
   render: function(){
     return (
-      <li>
-        <div className="note_list_item">
-          <label className="note_list_item_label" onDoubleClick={this._onDoubleClick}>{this.props.message}</label>
+      <li className="note_list_item">
+        <div className={cx({
+          "note_list_item_wrap": true,
+          "hidden": this.state.inEdit
+        })}>
+          <label className="note_list_item_label" onDoubleClick={this._onDoubleClick}>{this.state.value}</label>
           <button className="note_list_item_btn_del" onClick={this._onDeleteClick} >&times;</button>
         </div>
         <input
-          className="note_list_item_edit"
+          className={cx({
+            "note_list_item_edit": true,
+            "hidden": !this.state.inEdit
+          })}
           type="text"
           placeholder="Say Something."
           onBlur={this._save}
-          onChange={this._onChange}
           onKeyDown={this._onKeyDown}
-          value={this.props.message}
+          value={this.state.value}
+          onChange={this._onChange}
           autoFocus={true}
         />
       </li>
@@ -40,7 +51,7 @@ var NoteListItemView = React.createClass({
   },
 
   _save: function(){
-    NoteActions.update(this.props.key, this.props.message);
+    NoteActions.update(this.props.note.id, this.state.value);
     this.setState({inEdit: false});
   },
 
@@ -61,7 +72,7 @@ var NoteListItemView = React.createClass({
   },
 
   _onDeleteClick: function(){
-    NoteActions.delete(this.props.key);
+    NoteActions.delete(this.props.note.id);
   }
 
 });

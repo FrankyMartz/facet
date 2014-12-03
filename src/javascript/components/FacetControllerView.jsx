@@ -18,19 +18,6 @@ function getNoteStoreState(){
   };
 }
 
-function getNoteList(listID, notes) {
-  var list = [];
-  var note, id;
-  for (id in notes) {
-    if (notes.isOwnProperty(id)) {
-      note = notes[id];
-      if (note.listID === listID) {
-        list.push(note);
-      }
-    }
-  }
-  return list;
-}
 
 
 /* Facet App -----------------------------------------------------------------*/
@@ -54,15 +41,13 @@ var FacetApp = React.createClass({
   },
 
   render: function(){
-    var noteList = getNoteList(this.state.daySelected, this.state.allNotes);
     return (
       <div className="app">
         <Calendar notes={this.state.notes} daySelectedLink={this.linkState('daySelected')} />
-        <Notes notes={noteList} daySelectedLink={this.linkState('daySelected')} />
+        <Notes notes={this.state.notes} daySelectedLink={this.linkState('daySelected')} />
       </div>
     );
   },
-        //<Calendar allNotes={this.state.allNotes} daySelectedLink={this.linkState('daySelected')} />
 
   _onChange: function(){
     this.setState(getNoteStoreState());
