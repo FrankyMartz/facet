@@ -14,8 +14,8 @@ var createDateID = require('../utils/DateUtils.jsx').createDateID;
 /* Helper Functions ----------------------------------------------------------*/
 function getNoteStoreState(){
   return {
-    allNotes: NoteStore.getAll()
-  }
+    notes: NoteStore.getAll()
+  };
 }
 
 function getNoteList(listID, notes) {
@@ -40,7 +40,7 @@ var FacetApp = React.createClass({
 
   getInitialState: function(){
     return {
-      allNotes: NoteStore.getAll(),
+      notes: NoteStore.getAll(),
       daySelected: createDateID()
     };
   },
@@ -57,8 +57,8 @@ var FacetApp = React.createClass({
     var noteList = getNoteList(this.state.daySelected, this.state.allNotes);
     return (
       <div className="app">
-        <Calendar />
-        <Notes notes={noteList} daySelected={this.state.daySelected} />
+        <Calendar notes={this.state.notes} daySelectedLink={this.linkState('daySelected')} />
+        <Notes notes={noteList} daySelectedLink={this.linkState('daySelected')} />
       </div>
     );
   },

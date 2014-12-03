@@ -10,14 +10,16 @@ var CalendarHeader = require('./CalendarHeadView.jsx');
 var CalendarTable = require('./CalendarTableView.jsx');
 
 var CalendarView = React.createClass({
+
   render: function(){
     return (
       <section className="cal">
-        <CalendarHeader />
-        <CalendarTable />
+        <CalendarHeader daySelected={this.props.daySelectedLink.value} />
+        <CalendarTable {...this.props} />
       </section>
     );
   }
+
 });
 
 module.exports = CalendarView;

@@ -20,24 +20,36 @@ function dateObject(value){
   return (Object.prototype.toString.call(value) === '[object Date]') ? value : new Date(value);
 }
 
+
+/* REACT did't like internal method access -----------------------------------*/
 function getYear(value){
   var date = dateObject(value);
-  return date.getUTCFullYear();
+  return date.getFullYear();
 }
 
 function getMonth(value){
   var date = dateObject(value);
-  return date.getUTCMonth();
+  return date.getMonth();
 }
 
 function getDay(value){
   var date = dateObject(value);
-  return date.getUTCDate();
+  return date.getDate();
 }
 
 function getDayOfWeek(value){
   var date = dateObject(value);
-  return date.getUTCDay();
+  return date.getDay();
+}
+
+function getDayString(value){
+  var day = getDayOfWeek(value);
+  return DAYS_IN_WEEK[day];
+}
+
+function getMonthString(value){
+  var month = getMonth(value);
+  return MONTHS_IN_YEAR[month];
 }
 
 /* DateUtils -----------------------------------------------------------------*/
@@ -47,16 +59,9 @@ module.exports = {
     var year = getYear(date);
     var month = getMonth(date);
     var day = getDay(date);
-    return Date.UTC(year, month, day);
+    var cleanDate = new Date(year, month, day);
+    return (cleanDate.getTime());
   },
-
-  getYear: getYear,
-
-  getMonth: getMonth,
-
-  getDay: getDay,
-
-  getDayOfWeek: getDayOfWeek,
 
   getMonthStartDay: function(value){
     var date = dateObject(value);
@@ -66,24 +71,32 @@ module.exports = {
     return getDayOfWeek(firstDay);
   },
 
-  getMonthLength: function(year, month){
+  getMonthLength: function(value, shift){
+    shift = shift || 0;
+    var date = dateObject(value);
+    var month = getMonth(date);
+    if (shift) {
+      date.setMonth(month + shift);
+      month = getMonth(date);
+    }
+    var year = getYear(date);
     var monthLength;
-    if (month === 1) { // February only!
-      if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0){
-        monthLength = 29;
-      }
+
+    var isLeap = new Date(year, 1, 29).getMonth() == 1;
+    if (isLeap) {
+      monthLength = 29;
     } else {
       monthLength = DAYS_IN_MONTH[month];
     }
+
     return monthLength;
   },
 
-  getDayString: function(day){
-    return DAYS_IN_WEEK[day];
-  },
-
-  getMonthString: function(month){
-    return MONTHS_IN_YEAR[month];
-  }
+  getYear: getYear,
+  getMonth: getMonth,
+  getDay: getDay,
+  getDayOfWeek: getDayOfWeek,
+  getDayString: getDayString,
+  getMonthString: getMonthString
 
 };

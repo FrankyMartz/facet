@@ -93,21 +93,22 @@
 	font-size: 0.875rem
 	vertical-align: top
 	text-align: right
-	// Select
-	&:hover
-		cursor: pointer
-		& .cal_table_body_day:not(:disabled),
-		& .cal_table_body_day-void:not(:disabled)
-			text-decoration: underline
-			color: $color.link.hover
-		& .cal_table_body_day-today:not(:disabled)
-			background-color: $color.link.hover
 	// Edge Cell
 	&:first-child, &:last-child
 		color: $color.table.text.weekend
 
 .cal_table_body_day:disabled
 	color: $color.link.active
+
+.cal_table_body_day,
+.cal_table_body_day-void,
+.cal_table_body_day-today
+	display: inline-block
+	padding: 0.25em
+	text-align: center
+	width: auto
+	min-width: 1em
+	line-height: 1em
 
 .cal_table_body_day,
 .cal_table_body_day-void
@@ -118,8 +119,6 @@
 	color: $color.table.text.void
 
 .cal_table_body_day-today
-	padding: 0.125em
-	line-height: 1em
 	border-radius: 1.25em
 	border-color: transparent
 	color: $color.table.text.today
@@ -127,4 +126,13 @@
 	&:disabled
 		background-color: $color.link.active
 
-// For button:disabled remove cursor in JS
+.cursor-pointer:hover
+	cursor: pointer
+	& .cal_table_body_day,
+	& .cal_table_body_day-void
+		//text-decoration: underline
+		color: $color.link.hover
+	& .cal_table_body_day-today
+		background-color: $color.link.hover
+
+

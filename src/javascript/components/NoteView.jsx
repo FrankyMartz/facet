@@ -14,10 +14,13 @@ var NoteView = React.createClass({
     return (
       <aside className="note">
         <div className="note-wrap">
-          <NoteHead />
-          <NoteList />
+          <NoteHead daySelected={this.props.daySelectedLink.value} />
+          <NoteList notes={this.props.notes} />
         </div>
-        <NoteFoot />
+        <NoteFoot
+          total={this.props.notes.length}
+          daySelectedLink={this.props.daySelectedLink}
+        />
       </aside>
     );
   }

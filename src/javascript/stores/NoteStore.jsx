@@ -18,13 +18,13 @@ var _notes = {};
 
 
 /* Helper Function -----------------------------------------------------------*/
-function createNote(listID, note) {
+function createNote(listID) {
   //var rawNotes = JSON.parse(localStorage.getItem(NOTE_LOCAL_STORAGE));
   var id = Date.now();
   var newNote = {
     id: id,
-    listID: note.listID,
-    text: note.text
+    listID: listID,
+    text: ''
   };
   _notes[id] = newNote;
   //rawNotes.push(newNote);
@@ -69,24 +69,24 @@ NoteStore.dispatcherToken = AppDispatcher.register(function(payload){
   switch (action.actionType) {
 
     case NoteConstants.NOTE_CREATE:
-      createNote(action.listID, action.note);
+      createNote(action.listID);
       NoteStore.emitChange();
       break;
-    
+
     case NoteConstants.NOTE_DELETE:
       deleteNote(action.id);
       NoteStore.emitChange();
       break;
-    
+
     case NoteConstants.NOTE_UPDATE:
       updateNote(action.id, action.text);
       NoteStore.emitChange();
     break;
-    
+
     default:
       // do nothing
   }
-  
+
 });
 
 module.exports = NoteStore;

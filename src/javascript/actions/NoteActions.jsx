@@ -10,11 +10,11 @@ var NoteConstants = require('../constants/NoteConstants.jsx');
 
 var NoteActions = {
 
-  create: function(listID, note){
+  create: function(listID){
     AppDispatcher.handleViewAction({
       actionType: NoteConstants.NOTE_CREATE,
       listID: listID,
-      note: note
+      note: 'Say Something.'
     });
   },
 

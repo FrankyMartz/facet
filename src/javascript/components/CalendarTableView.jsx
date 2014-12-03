@@ -27,7 +27,7 @@ var CalenderTableView = React.createClass({
             <th>sat</th>
           </tr>
         </thead>
-        <CalendarTableBodyView />
+        <CalendarTableBodyView {...this.props} />
       </table>
     );
   }
